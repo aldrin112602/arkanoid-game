@@ -7,4 +7,22 @@
   const ctx = cvs.getContext("2d");
   
 
+  class Player {
+    x: number;
+    y: number;
+
+    constructor(x: number, y: number) {
+      this.x = x;
+      this.y = y;
+    }
+
+    draw() {
+      // drawing code here
+    }
+  }
+
+
+  const player = new Player(0, 0);
+  player.draw();
+
 })();
