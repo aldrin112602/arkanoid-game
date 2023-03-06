@@ -34,21 +34,20 @@
 
     draw() {
       // drawing code here
+      ctx.fillStyle = 'red';
+      ctx.fillRect(this.x, this.y, this.width, this.height);
     }
   }
 
-  cvs.addEventListener("mousemove", (e) => {
-    mouse.x = e.x;
-    mouse.y = e.y;
-  });
-  cvs.addEventListener("touchmove", (e) => {
-    mouse.x = e.touches[0].clientX;
-    mouse.y = e.touches[0].clientY;
-  });
-
-  const player = new Player(0, 0, 100, 300, "");
+  const [height, width] = [20, 100];
+  const player = new Player(game_width / 2 - (width / 2), game_height - height * 2, height, width, "");
 
   const play = () => {
+    ctx.fillStyle = "rgba(0,0,0,0.9)";
+    ctx.fillRect(0, 0, cvs.width, cvs.height);
+    player.draw()
     window.requestAnimationFrame(play);
   };
+
+  play()
 })();
