@@ -24,6 +24,10 @@
             ctx.fillStyle = 'red';
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
+        update() {
+            this.x = currentPosition.x;
+            this.y = currentPosition.y;
+        }
     }
     const { x, y } = currentPosition;
     const player = new Player(x, y, height, width, "");
@@ -45,6 +49,7 @@
         ctx.fillStyle = "rgba(0,0,0,0.9)";
         ctx.fillRect(0, 0, cvs.width, cvs.height);
         player.draw();
+        player.update();
         window.requestAnimationFrame(play);
     };
     play();
