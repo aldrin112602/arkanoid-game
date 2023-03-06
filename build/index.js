@@ -1,12 +1,12 @@
 (() => {
     const cvs = document.getElementById("game-canvas");
-    let game_height = 600, game_width = 1200;
+    let game_height = 600, game_width = 350;
     cvs.height = game_height;
     cvs.width = game_width;
     const ctx = cvs.getContext("2d");
     ctx.fillStyle = "000";
     ctx.fillRect(0, 0, cvs.width, cvs.height);
-    const [height, width] = [20, 100];
+    const [height, width] = [10, 50];
     const currentPosition = {
         x: game_width / 2 - width / 2,
         y: game_height - height * 2,
@@ -51,6 +51,15 @@
                 break;
         }
     }
+    cvs.onmousemove = (e) => {
+        const { x } = e;
+        console.log(e);
+        currentPosition.x = x - game_width + width * 2 - width / 2;
+        if (currentPosition.x <= 0)
+            currentPosition.x = 0;
+        if (currentPosition.x + width >= game_width)
+            currentPosition.x = game_width - width;
+    };
     const play = () => {
         ctx.fillStyle = "rgba(0,0,0,0.9)";
         ctx.fillRect(0, 0, cvs.width, cvs.height);

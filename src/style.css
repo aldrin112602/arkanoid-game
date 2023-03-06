@@ -15,4 +15,5 @@ body {
 
 canvas {
     border: .3rem solid #fff;
+    cursor: pointer;
 }
