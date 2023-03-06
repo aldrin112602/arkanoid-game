@@ -9,8 +9,11 @@
   ctx.fillStyle = "000";
   ctx.fillRect(0, 0, cvs.width, cvs.height);
 
-  const mouse = { x: undefined, y: undefined };
-
+  const [height, width] = [20, 100];
+  const currentPosition: { x: number; y: number } = {
+    x: game_width / 2 - width / 2,
+    y: game_height - height * 2,
+  };
   class Player {
     x: number;
     y: number;
@@ -39,11 +42,6 @@
     }
   }
 
-  const [height, width] = [20, 100];
-  const currentPosition: { x: number, y: number } = {
-    x: game_width / 2 - (width / 2), 
-    y: game_height - height * 2
-  }
   const {x, y} = currentPosition
   const player = new Player(x, y, height, width, "");
 
@@ -53,11 +51,11 @@ function checkKey(e) {
   switch(e.keyCode) {
     case '37':
       // left arrow key
-      player.x--;
+      currentPosition.x--;
       break;
     case '39':
       // right arrow key
-      player.y++;
+      currentPosition.y++;
       break;
   }
 }
