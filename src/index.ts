@@ -40,7 +40,27 @@
   }
 
   const [height, width] = [20, 100];
-  const player = new Player(game_width / 2 - (width / 2), game_height - height * 2, height, width, "");
+  const currentPosition: { x: number, y: number } = {
+    x: game_width / 2 - (width / 2), 
+    y: game_height - height * 2
+  }
+  const {x, y} = currentPosition
+  const player = new Player(x, y, height, width, "");
+
+document.onkeydown = checkKey;
+function checkKey(e) {
+  e = e || window.event;
+  switch(e.keyCode) {
+    case '37':
+      // left arrow key
+      player.x--;
+      break;
+    case '39':
+      // right arrow key
+      player.y++;
+      break;
+  }
+}
 
   const play = () => {
     ctx.fillStyle = "rgba(0,0,0,0.9)";
