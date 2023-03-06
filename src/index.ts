@@ -37,7 +37,7 @@
 
     draw() {
       // drawing code here
-      ctx.fillStyle = 'red';
+      ctx.fillStyle = "red";
       ctx.fillRect(this.x, this.y, this.width, this.height);
     }
     update() {
@@ -46,23 +46,26 @@
     }
   }
 
-  const {x, y} = currentPosition
+  const { x, y } = currentPosition;
   const player = new Player(x, y, height, width, "");
 
-document.onkeydown = checkKey;
-function checkKey(e) {
-  e = e || window.event;
-  switch(e.keyCode) {
-    case '37':
-      // left arrow key
-      currentPosition.x--;
-      break;
-    case '39':
-      // right arrow key
-      currentPosition.y++;
-      break;
+  document.onkeydown = checkKey;
+  function checkKey(e) {
+    e = e || window.event;
+    switch (e.keyCode) {
+      case 37:
+        // left arrow key
+        if (currentPosition.x <= 0) currentPosition.x = 0;
+        else currentPosition.x -= 20;
+        break;
+      case 39:
+        // right arrow key
+        if (currentPosition.x + width >= game_width)
+          currentPosition.x = game_width - width;
+        else currentPosition.x += 20;
+        break;
+    }
   }
-}
 
   const play = () => {
     ctx.fillStyle = "rgba(0,0,0,0.9)";
@@ -72,5 +75,5 @@ function checkKey(e) {
     window.requestAnimationFrame(play);
   };
 
-  play()
+  play();
 })();

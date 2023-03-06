@@ -21,7 +21,7 @@
         }
         draw() {
             // drawing code here
-            ctx.fillStyle = 'red';
+            ctx.fillStyle = "red";
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
         update() {
@@ -35,13 +35,19 @@
     function checkKey(e) {
         e = e || window.event;
         switch (e.keyCode) {
-            case '37':
+            case 37:
                 // left arrow key
-                currentPosition.x--;
+                if (currentPosition.x <= 0)
+                    currentPosition.x = 0;
+                else
+                    currentPosition.x -= 20;
                 break;
-            case '39':
+            case 39:
                 // right arrow key
-                currentPosition.y++;
+                if (currentPosition.x + width >= game_width)
+                    currentPosition.x = game_width - width;
+                else
+                    currentPosition.x += 20;
                 break;
         }
     }
