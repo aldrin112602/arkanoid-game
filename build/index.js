@@ -24,8 +24,9 @@ const startGame = (() => {
         }
         draw() {
             // drawing code here
-            ctx.fillStyle = "red";
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            const img = new Image();
+            img.src = this.src;
+            ctx.drawImage(img, this.x, this.y, this.width, this.height);
         }
         update() {
             this.x = currentPosition.x;
@@ -71,7 +72,7 @@ const startGame = (() => {
         }
     }
     const { x, y } = currentPosition;
-    const player = new Player(x, y, height, width, "");
+    const player = new Player(x, y, height, width, "./assets/player.png");
     const ball = (() => {
         const { width, height } = { width: 10, height: 10 };
         return new Ball(game_width / 2 - width / 2, game_height / 2, width, height);
