@@ -16,4 +16,21 @@ body {
 canvas {
     border: .3rem solid #fff;
     cursor: pointer;
+    box-shadow: 1px 1px 10px lime;
+}
+
+button {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 40px;
+    width: 12rem;
+    background-color: transparent;
+    color: lime;
+    border: 1px dotted lime;
+    cursor: pointer;
+    box-shadow: 1px 1px 10px lime;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 10px;
 }

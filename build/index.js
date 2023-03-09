@@ -1,4 +1,4 @@
-(() => {
+const startGame = (() => {
     const cvs = document.getElementById("game-canvas");
     let game_height = 600, game_width = 350;
     cvs.height = game_height;
@@ -11,6 +11,9 @@
         x: game_width / 2 - width / 2,
         y: game_height - height * 2,
     };
+    /**
+     * Player Object Constructor
+     */
     class Player {
         constructor(x, y, height, width, src) {
             this.x = x;
@@ -29,8 +32,50 @@
             this.y = currentPosition.y;
         }
     }
+    /**
+     * Ball Object Constructor
+     */
+    class Ball {
+        constructor(x, y, width, height, src) {
+            this.x = x;
+            this.y = y;
+            this.height = height;
+            this.width = width;
+            this.src = src;
+            this.speedX = 5;
+            this.speedY = 5;
+            this.turnLeft = Math.floor(Math.random() * 2) == 1;
+            this.turnUp = false;
+        }
+        draw() {
+            ctx.fillStyle = "white";
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+        update() {
+            if (this.x + this.width >= game_width)
+                this.turnLeft = true;
+            if (this.x + this.width <= 0)
+                this.turnLeft = false;
+            if (this.turnLeft)
+                this.x -= this.speedX;
+            else
+                this.x += this.speedX;
+            if (this.y + this.height >= game_height)
+                this.turnUp = true;
+            if (this.y + this.height <= 0)
+                this.turnUp = false;
+            if (this.turnUp)
+                this.y -= this.speedY;
+            else
+                this.y += this.speedY;
+        }
+    }
     const { x, y } = currentPosition;
     const player = new Player(x, y, height, width, "");
+    const ball = (() => {
+        const { width, height } = { width: 10, height: 10 };
+        return new Ball(game_width / 2 - width / 2, game_height / 2, width, height);
+    })();
     document.onkeydown = checkKey;
     function checkKey(e) {
         e = e || window.event;
@@ -51,21 +96,39 @@
                 break;
         }
     }
+    const checkCollision = (obj1, obj2) => {
+        return (obj1.x < obj2.x + obj2.width &&
+            obj1.x + obj1.width > obj2.x &&
+            obj1.y < obj2.y + obj2.height &&
+            obj1.height + obj1.y > obj2.y);
+    };
     cvs.onmousemove = (e) => {
-        const { x } = e;
-        console.log(e);
-        currentPosition.x = x - game_width + width * 2 - width / 2;
+        const { clientX } = e;
+        const { x } = cvs.getBoundingClientRect();
+        currentPosition.x = clientX - (x + width / 2);
         if (currentPosition.x <= 0)
             currentPosition.x = 0;
         if (currentPosition.x + width >= game_width)
             currentPosition.x = game_width - width;
     };
+    let game_started = false;
     const play = () => {
-        ctx.fillStyle = "rgba(0,0,0,0.9)";
+        ctx.fillStyle = "rgba(0,0,0,0.4)";
         ctx.fillRect(0, 0, cvs.width, cvs.height);
         player.draw();
         player.update();
+        ball.draw();
+        if (checkCollision(player, ball)) {
+            ball.turnUp = true;
+        }
+        if (game_started)
+            ball.update();
         window.requestAnimationFrame(play);
     };
     play();
+    return () => {
+        document.querySelector("button").style.display = "none";
+        game_started = true;
+        console.log("Game started!");
+    };
 })();
