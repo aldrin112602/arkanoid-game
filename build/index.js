@@ -4,8 +4,6 @@ const startGame = (() => {
     cvs.height = game_height;
     cvs.width = game_width;
     const ctx = cvs.getContext("2d");
-    ctx.fillStyle = "000";
-    ctx.fillRect(0, 0, cvs.width, cvs.height);
     const [height, width] = [10, 50];
     const currentPosition = {
         x: game_width / 2 - width / 2,
@@ -113,9 +111,12 @@ const startGame = (() => {
             currentPosition.x = game_width - width;
     };
     let game_started = false;
+    const img = new Image();
+    img.src = "./assets/hd-bg.jpg";
     const play = () => {
         ctx.fillStyle = "rgba(0,0,0,0.4)";
         ctx.fillRect(0, 0, cvs.width, cvs.height);
+        ctx.drawImage(img, 0, 0, cvs.width, cvs.height);
         player.draw();
         player.update();
         ball.draw();
