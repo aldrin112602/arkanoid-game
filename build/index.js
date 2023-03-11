@@ -47,8 +47,9 @@ const startGame = (() => {
             this.turnUp = false;
         }
         draw() {
-            ctx.fillStyle = "white";
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            const ball = new Image();
+            ball.src = './assets/spike-ball.png';
+            ctx.drawImage(ball, this.x, this.y, this.width, this.height);
         }
         update() {
             if (this.x + this.width >= game_width)
@@ -72,8 +73,8 @@ const startGame = (() => {
     const { x, y } = currentPosition;
     const player = new Player(x, y, height, width, "./assets/player.png");
     const ball = (() => {
-        const { width, height } = { width: 10, height: 10 };
-        return new Ball(game_width / 2 - width / 2, game_height / 2, width, height);
+        const { width, height } = { width: 20, height: 20 };
+        return new Ball(game_width / 2 - width / 2, game_height / 2, width, height, './assets/spike-ball.png');
     })();
     document.onkeydown = checkKey;
     function checkKey(e) {
